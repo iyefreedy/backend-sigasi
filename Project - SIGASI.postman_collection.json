@@ -1,0 +1,1419 @@
+{
+	"info": {
+		"_postman_id": "c3185e63-eb82-4b26-b3f3-f0714536f89c",
+		"name": "Project - SIGASI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26535516",
+		"_collection_link": "https://crimson-shadow-822656.postman.co/workspace/Team-Workspace~ad1b6203-d040-4db8-8e28-5351bb47a568/collection/18833171-c3185e63-eb82-4b26-b3f3-f0714536f89c?action=share&source=collection_link&creator=26535516"
+	},
+	"item": [
+		{
+			"name": "Barang",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/barang",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"barang"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nama_barang\": \"Bawang Goreng\",\r\n    \"jenis_barang\": 1,\r\n    \"harga_satuan\": 20000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/barang/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"barang",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/barang/show/3",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"barang",
+								"show",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nama_barang\": \"Bawang Rebus\",\r\n    \"jenis_barang\": 1,\r\n    \"harga_satuan\": 30000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/barang/update/3",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"barang",
+								"update",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Bantuan",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3MjgyMjQzNDksImV4cCI6MTcyODIyNzk0OSwibmJmIjoxNzI4MjI0MzQ5LCJqdGkiOiJ6azgyWVJwRWFVN0RmTktaIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.Yo1eix3G7LAoQxqN2KaOeuP2tupiKg4DthbEJfMtkzQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/bantuan",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"bantuan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjg1NzE2MzIsImV4cCI6MTcyODU3NTIzMiwibmJmIjoxNzI4NTcxNjMyLCJqdGkiOiJkYXZRemVyRHk0ZW5lUUhtIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.MtqEbXMpQbzK8fXh6nO0rpjF1RxGbHDyeNGuPLNAZBw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"donatur\": 2,\r\n  \"tanggal_bantuan\": \"2023-09-22\",\r\n  \"barang\": [\r\n    {\r\n      \"id_barang\": 1,\r\n      \"jumlah_barang\": 50\r\n    },\r\n    {\r\n      \"id_barang\": 3,\r\n      \"jumlah_barang\": 100\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/bantuan/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"bantuan",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3MjgyMjQzNDksImV4cCI6MTcyODIyNzk0OSwibmJmIjoxNzI4MjI0MzQ5LCJqdGkiOiJ6azgyWVJwRWFVN0RmTktaIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.Yo1eix3G7LAoQxqN2KaOeuP2tupiKg4DthbEJfMtkzQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/bantuan/show/7",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"bantuan",
+								"show",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjg1NzE2MzIsImV4cCI6MTcyODU3NTIzMiwibmJmIjoxNzI4NTcxNjMyLCJqdGkiOiJkYXZRemVyRHk0ZW5lUUhtIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.MtqEbXMpQbzK8fXh6nO0rpjF1RxGbHDyeNGuPLNAZBw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"donatur\": 1,\r\n  \"tanggal_bantuan\": \"2023-09-22\",\r\n  \"barang\": [\r\n    {\r\n      \"id_barang\": 3,\r\n      \"jumlah_barang\": 20\r\n    },\r\n    {\r\n      \"id_barang\": 2,\r\n      \"jumlah_barang\": 10\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/bantuan/update/7",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"bantuan",
+								"update",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjc2ODYzNDgsImV4cCI6MTcyNzY4OTk0OCwibmJmIjoxNzI3Njg2MzQ4LCJqdGkiOiJMb2t6SEtDeVhCdzU3RW0xIiwic3ViIjoiMyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.eGJYNGA3ssaR5dPsZcKA12E-PLcjCjSBrB8N61nC5Ys",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Donatur",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/donatur",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"donatur"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nama_perusahaan\": \"Contoh Perusahaan Baru1\",\r\n  \"alamat\": \"Jl. Contoh Alamat No. 123, Jakarta\",\r\n  \"nomor_kontak\": \"081234567890\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/donatur/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"donatur",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/donatur/show/4",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"donatur",
+								"show",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nama_perusahaan\": \"Contoh Perusahaan MM\",\r\n  \"alamat\": \"Jl. Contoh Alamat No. 532, Jakarta\",\r\n  \"nomor_kontak\": \"081234567890\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/donatur/update/4",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"donatur",
+								"update",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Kelompok",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/kelompok",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kelompok"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nama_kelompok\": \"Kelompok 2\",\r\n    \"keterangan\": \"20 > 40\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/kelompok/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kelompok",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/kelompok/show/2",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kelompok",
+								"show",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nama_kelompok\": \"Kelompok 2 (update)\",\r\n    \"keterangan\": \"20 > 42\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/kelompok/update/1",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kelompok",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Penduduk",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/penduduk",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"penduduk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ktp\": \"{{$randomBankAccount}}\",\r\n    \"nama\": \"{{$randomFullName}}\",\r\n    \"alamat\": \"{{$randomStreetName}}\",\r\n    \"desa\": \"{{$randomCity}}\",\r\n    \"tanggal_lahir\": \"2024/09/21\",\r\n    \"jenis_kelamin\": 1,\r\n    \"kelompok\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/penduduk/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"penduduk",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/penduduk/show/2",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"penduduk",
+								"show",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ktp\": \"{{$randomBankAccount}}\",\r\n    \"nama\": \"{{$randomFullName}}\",\r\n    \"alamat\": \"{{$randomStreetName}}\",\r\n    \"desa\": \"{{$randomCity}}\",\r\n    \"tanggal_lahir\": \"2024/10/20\",\r\n    \"jenis_kelamin\": 1,\r\n    \"kelompok\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/penduduk/update/2",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"penduduk",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Posko",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/posko/index",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"posko",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUser\": 3,\r\n    \"location\": \"serang banten cikampek\",\r\n    \"problem\": \"kemiskinan yang  banget\",\r\n    \"solution\": \"pindah ke bekasi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/posko/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"posko",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/posko/show/2",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"posko",
+								"show",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUser\": 3,\r\n    \"location\": \"cirebons\",\r\n    \"problem\": \"kemiskinan\",\r\n    \"solution\": \"kasih pekerjaan ya\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/posko/update/2",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"posko",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jenis Barang",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjc2MTU2OTgsImV4cCI6MTcyNzYxOTI5OCwibmJmIjoxNzI3NjE1Njk4LCJqdGkiOiJCWmFTRG83cnRjNnNIN1hzIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.YdAibgIP1JdcJMfOVox0GcsDq2iv2YGjljl9VTzRRQs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/jenis-barang",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"jenis-barang"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjc2MTU2OTgsImV4cCI6MTcyNzYxOTI5OCwibmJmIjoxNzI3NjE1Njk4LCJqdGkiOiJCWmFTRG83cnRjNnNIN1hzIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.YdAibgIP1JdcJMfOVox0GcsDq2iv2YGjljl9VTzRRQs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "jenis_barang",
+									"value": "MAKANAN",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/jenis-barang/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"jenis-barang",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjc2MTU2OTgsImV4cCI6MTcyNzYxOTI5OCwibmJmIjoxNzI3NjE1Njk4LCJqdGkiOiJCWmFTRG83cnRjNnNIN1hzIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.YdAibgIP1JdcJMfOVox0GcsDq2iv2YGjljl9VTzRRQs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/jenis-barang/show/1",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"jenis-barang",
+								"show",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjc2MTU2OTgsImV4cCI6MTcyNzYxOTI5OCwibmJmIjoxNzI3NjE1Njk4LCJqdGkiOiJCWmFTRG83cnRjNnNIN1hzIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.YdAibgIP1JdcJMfOVox0GcsDq2iv2YGjljl9VTzRRQs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jenis_barang\" : \"MINUMAN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/jenis-barang/update/1",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"jenis-barang",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pengungsi",
+			"item": [
+				{
+					"name": "Index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/pengungsi/index",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"pengungsi",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPenduduk\" : 2,\r\n    \"idPosko\" : 2,\r\n    \"condition\" : \"idPenduduk\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/pengungsi/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"pengungsi",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/pengungsi/show/2",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"pengungsi",
+								"show",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPenduduk\" : 1,\r\n    \"idPosko\" : 2,\r\n    \"condition\" : \"kureng\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/pengungsi/update/2",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"pengungsi",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kebutuhan",
+			"item": [
+				{
+					"name": "Index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/kebutuhan/index",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kebutuhan",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPosko\": 1,\r\n    \"product\": [\r\n        {\r\n            \"idProduct\": 1,\r\n            \"qty\": 20\r\n        },\r\n        {\r\n            \"idProduct\": 2,\r\n            \"qty\": 100\r\n\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/kebutuhan/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kebutuhan",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPosko\": 2,\r\n    \"idProduct\": 2,\r\n    \"qtyRequest\": 50,\r\n    \"qtyReceived\": 50\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/kebutuhan/update/3",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kebutuhan",
+								"update",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/kebutuhan/show/3",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kebutuhan",
+								"show",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Qty Received",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qty\" : 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/kebutuhan/qtyReceived/3",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"kebutuhan",
+								"qtyReceived",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/user-management/index",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"user-management",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"TESTINGPOSKOPUSAT1\",\r\n    \"email\": \"TESTINGPOSKOPUSAT1@gmail.com\",\r\n    \"username\": \"TESTING POSKO PUSAT1\",\r\n    \"phone\": \"08919287421\",\r\n    \"address\": \"serang banten jombang\",\r\n    \"password\": \"testing123\",\r\n    \"password_confirmation\": \"testing123\",\r\n    \"role\": 4\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/user-management/store",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"user-management",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/user-management/show/7",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"user-management",
+								"show",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"TESTINGPOSKOPUSAT1 (update)\",\r\n    \"email\": \"TESTINGPOSKOPUSAT1@gmail.com\",\r\n    \"username\": \"TESTING POSKO PUSAT1\",\r\n    \"phone\": \"08919287421\",\r\n    \"address\": \"serang banten jombang\",\r\n    \"password\": \"testing123\",\r\n    \"password_confirmation\": \"testing123\",\r\n    \"role\": 4\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/user-management/update/7",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"user-management",
+								"update",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9yZWZyZXNoIiwiaWF0IjoxNzI4ODMwMTIzLCJleHAiOjE3Mjg4MzM3ODMsIm5iZiI6MTcyODgzMDE4MywianRpIjoiYW56U3Btc1Q1NGlEUnJuMiIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.LOcsvzMWPZYjylj1V7Gye9ZR2UcFu5KkGSo6UUu5gEM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/logout",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjg4MzAxMjMsImV4cCI6MTcyODgzMzcyMywibmJmIjoxNzI4ODMwMTIzLCJqdGkiOiJBOUxoT29WU3BoRm9UeGRkIiwic3ViIjoiMiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.Yb5cxGi3-TYM_JYwxNp-sUI3T06lqJ3hufpiMislNsM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAINS}}api/refresh",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "HH6RhygzfJloLKDIw2gkVtYE0f554I5zgSPbKhoF30HaN5CX8D8LCgw4OARPCEep",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email_or_username",
+									"value": "posko",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{DOMAINS}}api/authenticate",
+							"host": [
+								"{{DOMAINS}}api"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DOMAINS}}api/dashboard",
+					"host": [
+						"{{DOMAINS}}api"
+					],
+					"path": [
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtc2lnYXNpLm15LmlkL2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE3Mjg1NzI2MDYsImV4cCI6MTcyODU3NjIwNiwibmJmIjoxNzI4NTcyNjA2LCJqdGkiOiJzcExKYVJETGNTSUw0M2NyIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.sAMG7fn2ZcnFK5gwM1YuU_XtHWy8xSGzvIoVdZC1YrM",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "JWT_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "DOMAINS",
+			"value": "https://backend-sigasi.my.id/",
+			"type": "string"
+		},
+		{
+			"key": "LOCAL",
+			"value": "http://127.0.0.1:8000/",
+			"type": "string"
+		}
+	]
+}
