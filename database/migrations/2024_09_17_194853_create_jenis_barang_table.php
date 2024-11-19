@@ -12,11 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jenis_barang', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->integer('IDJenisBarang')->autoIncrement();
+            $table->uuid('IDJenisBarang')->primary();
             $table->string('JenisBarang', 20);
-            $table->dateTime('LastUpdateDate')->nullable();
-
+            $table->timestamp('LastUpdateDate')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

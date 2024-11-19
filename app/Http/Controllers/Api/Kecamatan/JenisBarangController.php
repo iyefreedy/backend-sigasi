@@ -11,13 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class JenisBarangController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:kecamatan');
-    }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         try {

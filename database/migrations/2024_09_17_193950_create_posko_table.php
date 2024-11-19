@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posko', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->integer('IDPosko')->autoIncrement();
-            $table->integer('Ketua');
+            $table->uuid('IDPosko')->primary();
+            $table->foreignUuid('IDKetua');
             $table->string('Lokasi', 50);
             $table->string('Masalah', 255)->nullable();
             $table->string('SolusiMasalah', 255)->nullable();

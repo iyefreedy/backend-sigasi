@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class DonaturController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('role:bansos');
-    }
     /**
      * Display a listing of the resource.
      */
@@ -24,7 +19,7 @@ class DonaturController extends Controller
     {
         try {
             // Mengambil data donatur dengan paginasi
-            $donatur = Donatur::paginate(10); // Membatasi hasil menjadi 10 per halaman
+            $donatur = Donatur::all(); // Membatasi hasil menjadi 10 per halaman
 
             // Mengembalikan respons sukses dengan data donatur yang dipaginasi
             return ApiResponse::success($donatur);

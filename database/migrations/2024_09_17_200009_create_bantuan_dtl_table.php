@@ -12,15 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bantuan_dtl', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->integer('IDBantuanDTL')->autoIncrement();
-            $table->integer('IDBantuan');
-            $table->integer('IDBarang');
-            $table->integer('Jumlah')->nullable();
-            
+            $table->uuid('IDBantuanDTL')->primary();
+            $table->foreignUuid('IDBantuan');
+            $table->foreignUuid('IDBarang');
+            $table->integer('Jumlah');
+
             $table->foreign('IDBantuan')->references('IDBantuan')->on('bantuan');
             $table->foreign('IDBarang')->references('IDBarang')->on('barang');
-
         });
     }
 

@@ -12,15 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('barang', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->integer('IDBarang')->autoIncrement();
+
+            $table->uuid('IDBarang')->primary();
+            $table->foreignUuid('IDJenisBarang');
             $table->string('NamaBarang', 20);
-            $table->integer('IDJenisBarang')->nullable();
-            $table->float('HargaSatuan',0,2)->nullable();
-            $table->dateTime('LastUpdateDate')->nullable();
+            $table->float('HargaSatuan', 0, 2)->default(0);
+            $table->timestamp('LastUpdateDate')->useCurrent()->useCurrentOnUpdate();
 
             $table->foreign('IDJenisBarang')->references('IDJenisBarang')->on('jenis_barang');
-
         });
     }
 

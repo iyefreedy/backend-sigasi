@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class BarangController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:kecamatan');
-    }
 
     public function index()
     {

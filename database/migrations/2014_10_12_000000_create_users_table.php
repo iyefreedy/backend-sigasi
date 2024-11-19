@@ -10,19 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->integer('id')->autoIncrement();
-            $table->string('name');
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->char('phone', 13);
-            $table->text('address')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create('pengguna', function (Blueprint $table) {
+            $table->uuid('IDPengguna')->primary();
+            $table->string('Nama');
+            $table->char('NomorKontak', 13);
+            $table->string('Username')->unique();
+            $table->string('KataSandi');
+            $table->foreignUuid('IDPosko')->nullable();
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable();
         });
     }
 

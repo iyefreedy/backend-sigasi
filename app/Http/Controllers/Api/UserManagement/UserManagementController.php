@@ -15,11 +15,6 @@ use Illuminate\Support\Facades\Hash;
 class UserManagementController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('role:posko-utama|posko');
-    }
-
     public function index()
     {
         $user = User::with('roles')->whereNull('deleted_at')->paginate(10);
@@ -61,7 +56,6 @@ class UserManagementController extends Controller
             } else {
                 DB::rollBack();
                 return ApiResponse::badRequest('user gagal disimpan');
-
             }
         } catch (Exception $e) {
             return ApiResponse::badRequest($e->getMessage());
@@ -138,7 +132,6 @@ class UserManagementController extends Controller
             } else {
                 DB::rollBack();
                 return ApiResponse::success('User Gagal Disimpan');
-
             }
         } catch (Exception $e) {
             return ApiResponse::success($e->getMessage());

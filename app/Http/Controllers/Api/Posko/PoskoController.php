@@ -12,18 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class PoskoController extends Controller
 {
-    public function __construct()
-    {
-        /**
-         * Super Admin Access
-         */
-        $this->middleware('role:posko-utama', ['except' => ['index', 'show']]);
-
-        /**
-         * Super Admin and Pemerintah Access
-         */
-        $this->middleware('role:posko-utama|posko', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
-    }
     public function index()
     {
         $posko = Posko::with(['user'])->paginate(10); // untuk dapatkan semua data posko, dengan dibatasi 10 data
@@ -34,21 +22,21 @@ class PoskoController extends Controller
     {
         // menampilkan data posko berdasarkan parameter id dengan relasi user
         $posko = Posko::with(['user'])->where('IDPosko', $id)->first();
-        if(!$posko){ // jika posko tidak ada, maka masuk kondisi error
+        if (!$posko) { // jika posko tidak ada, maka masuk kondisi error
             return ApiResponse::badRequest('Data posko tidak ditemukan.');
         }
-        
+
         return ApiResponse::success($posko); // data dari posko
     }
 
     public function store(Request $request)
     {
-        try { 
+        try {
             $validator = Validator::make($request->all(), [ // validasi data 
                 'idUser' => 'required|numeric',
                 'location' => 'required|max:50',
                 'problem' => 'required',
-                'solution' => 'required', 
+                'solution' => 'required',
 
             ]);
 
@@ -82,8 +70,8 @@ class PoskoController extends Controller
             $validator = Validator::make($request->all(), [
                 'idUser' => 'required',
                 'location' => 'required|max:50',
-                'problem' => 'required', 
-                'solution' => 'required', 
+                'problem' => 'required',
+                'solution' => 'required',
 
             ]);
 

@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -32,7 +33,7 @@ class AuthController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return ApiResponse::badRequest(null, $validator->errors());
+                return ApiResponse::badRequest(null, 'Pesan: ' . $validator->errors());
             }
 
             $credentials = request([$field, 'password']);
@@ -41,12 +42,12 @@ class AuthController extends Controller
                 return ApiResponse::unauthorized('Email atau Password Anda salah');
             }
 
-            return ApiResponse::success([
-                'user' => auth()->guard('api')->user(),
+            return response()->json([
+                'data' => auth()->guard('api')->user(),
                 'token' => $token,
             ]);
-
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return ApiResponse::badRequest(null, $e->getMessage());
         }
     }

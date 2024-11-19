@@ -12,10 +12,10 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name' => 'posko-utama']);
-        Role::create(['name' => 'posko']);
-        Role::create(['name' => 'bansos']);
-        Role::create(['name' => 'kecamatan']);
-
+        $poskoUtama = Role::create(['name' => 'Posko Utama', 'guard_name' => 'api']);
+        $poskoUtama->givePermissionTo('posko:create', 'posko:view-any', 'posko:view', 'kelompok:view-any');
+        Role::create(['name' => 'posko', 'guard_name' => 'api']);
+        Role::create(['name' => 'bansos', 'guard_name' => 'api']);
+        Role::create(['name' => 'kecamatan', 'guard_name' => 'api']);
     }
 }

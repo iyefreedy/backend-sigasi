@@ -14,15 +14,12 @@ use Illuminate\Support\Facades\Validator;
 
 class KebutuhanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:posko-utama|posko');
-    }
+
 
     public function index()
     {
         // menampilkan data kebutuhan dengan dibatasi 10 record
-        $kebutuhan = Kebutuhan::with(['posko.user', 'barang.jenisBarang'])->paginate(10);
+        $kebutuhan = Kebutuhan::with(['posko.user', 'barang.jenisBarang'])->all();
         return ApiResponse::success($kebutuhan);
     }
 
@@ -39,7 +36,7 @@ class KebutuhanController extends Controller
     public function store(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(), [// cek validasi sesuai parameter
+            $validator = Validator::make($request->all(), [ // cek validasi sesuai parameter
                 'idPosko' => 'numeric',
             ]);
 
@@ -48,7 +45,7 @@ class KebutuhanController extends Controller
             }
 
             DB::beginTransaction();
-            $arr_kebutuhan = [];// menampung data
+            $arr_kebutuhan = []; // menampung data
             foreach ($request->product as $product) {
                 $kebutuhan = Kebutuhan::lockForUpdate()->create([
                     'IDBarang' => $product['idProduct'],
@@ -63,11 +60,11 @@ class KebutuhanController extends Controller
                     return ApiResponse::badRequest('Data kebutuhan tidak dapat disimpan.');
                 }
 
-                array_push($arr_kebutuhan, $kebutuhan);// jika tidak error maka mengirimkan array
+                array_push($arr_kebutuhan, $kebutuhan); // jika tidak error maka mengirimkan array
             }
 
             DB::commit();
-            return ApiResponse::created($arr_kebutuhan);// memnuat record baru
+            return ApiResponse::created($arr_kebutuhan); // memnuat record baru
         } catch (Exception $e) {
             return ApiResponse::badRequest($e);
         }
@@ -77,7 +74,7 @@ class KebutuhanController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'qty' => 'numeric', 
+                'qty' => 'numeric',
             ]);
 
             if ($validator->fails()) {
@@ -108,7 +105,7 @@ class KebutuhanController extends Controller
     public function update(Request $request, $id) // untuk mengisi jumlah yang diterima
     {
         try {
-            $validator = Validator::make($request->all(), [ 
+            $validator = Validator::make($request->all(), [
                 'idPosko' => 'numeric',
             ]);
 
@@ -128,7 +125,7 @@ class KebutuhanController extends Controller
                 'LastUpdateBy' => Auth::user()->id,
             ]);
             if ($kebutuhan) {
-                DB::commit();// jika berhasil maka commit data
+                DB::commit(); // jika berhasil maka commit data
                 $data_kebutuhan = Kebutuhan::with(['posko.user', 'barang.jenisBarang'])->where('IDKebutuhan', $id)->with('barang', 'posko')->first();
                 return ApiResponse::created($data_kebutuhan);
             } else {

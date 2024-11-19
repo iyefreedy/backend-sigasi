@@ -11,16 +11,15 @@ use Illuminate\Support\Facades\Validator;
 
 class PendudukController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:kecamatan|posko-utama');
-    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
+            if (!$request->user()->hasPermissionTo('penduduk:view-any')) {
+                return ApiResponse::forbidden();
+            }
             // Mengambil daftar Penduduk dengan relasi kelompok, dan melakukan pagination
             $penduduk = Penduduk::with(['kelompok'])->paginate(10);
 

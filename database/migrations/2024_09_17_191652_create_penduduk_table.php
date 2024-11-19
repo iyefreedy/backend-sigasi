@@ -12,18 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penduduk', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->integer('IDPenduduk')->autoIncrement();
-            $table->string('KTP', 16);
-            $table->string('Nama', 20);
-            $table->string('Alamat', 50);
-            $table->char('Desa', 20);
-            $table->dateTime('TanggalLahir')->nullable();
-            $table->boolean('JenisKelamin')->nullable();
-            $table->integer('Kelompok')->nullable();
-            $table->dateTime('LastUpdateDate')->nullable();
-            $table->integer('LastUpdateBy')->nullable();
-
+            $table->uuid('IDPenduduk')->primary();
+            $table->char('KTP', 16)->nullable();
+            $table->string('Nama', 100);
+            $table->string('Alamat', 100);
+            $table->string('Desa', 50);
+            $table->date('TanggalLahir');
+            $table->enum('JenisKelamin', ['Laki-Laki', 'Perempuan']);
+            $table->foreignUuid('IDKelompok');
+            $table->timestamp('LastUpdateDate')->useCurrent()->useCurrentOnUpdate();
+            $table->foreignUuid('LastUpdateBy');
         });
     }
 

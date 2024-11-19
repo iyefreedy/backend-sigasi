@@ -11,18 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class KelompokController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:kecamatan');
-    }
+    public function __construct() {}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
         try {
             // Mengambil daftar Kelompok dengan pagination 10 item per halaman
-            $kelompok = Kelompok::paginate(10);
+            $kelompok = Kelompok::all();
 
             // Mengembalikan response sukses dengan data kelompok
             return ApiResponse::success($kelompok);
@@ -38,6 +36,7 @@ class KelompokController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('kelompok:create');
         try {
             // Memulai transaksi database
             DB::beginTransaction();

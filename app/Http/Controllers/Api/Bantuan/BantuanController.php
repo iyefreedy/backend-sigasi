@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Validator;
 
 class BantuanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:kecamatan|posko-utama');
-    }
     /**
      * Display a listing of the resource.
      */
@@ -28,9 +24,7 @@ class BantuanController extends Controller
             $bantuan = Bantuan::with([
                 'donatur', // Memuat relasi 'donatur'
                 'bantuanDetail.barang' // Memuat relasi 'bantuanDetail' dan 'barang'
-            ])
-                ->orderBy('IDBantuan', 'desc') // Mengurutkan data berdasarkan IDBantuan secara menurun
-                ->paginate(10); // Menggunakan pagination untuk membatasi data menjadi 10 per halaman
+            ])->all(); // Menggunakan pagination untuk membatasi data menjadi 10 per halaman
 
             // Mengembalikan respons sukses dengan data bantuan yang dipaginasi
             return ApiResponse::success($bantuan);

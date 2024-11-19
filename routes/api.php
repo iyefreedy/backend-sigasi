@@ -34,18 +34,18 @@ Route::post('logout', [\App\Http\Controllers\Api\AuthController::class, 'logout'
 Route::post('refresh', [\App\Http\Controllers\Api\AuthController::class, 'refresh']);
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('user', function (Request $request) {
+    Route::get('user', function (Request $request) {
         return $request->user();
     });
 
     Route::controller(UserManagementController::class)
-    ->prefix('user-management')
-    ->group(function () {
-        Route::get('index', 'index');
-        Route::get('show/{id}', 'show');
-        Route::post('store', 'store');
-        Route::put('update/{id}', 'update');
-    });
+        ->prefix('user-management')
+        ->group(function () {
+            Route::get('index', 'index');
+            Route::get('show/{id}', 'show');
+            Route::post('store', 'store');
+            Route::put('update/{id}', 'update');
+        });
 
     Route::controller(PoskoController::class)
         ->prefix('posko')
@@ -73,7 +73,6 @@ Route::middleware('auth:api')->group(function () {
             Route::post('store', 'store');
             Route::put('qtyReceived/{id}', 'qtyReceived');
             Route::put('update/{id}', 'update');
-
         });
 
     Route::controller(BarangController::class)

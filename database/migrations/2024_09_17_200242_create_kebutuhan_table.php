@@ -13,17 +13,16 @@ return new class extends Migration
     {
         Schema::create('kebutuhan', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('IDKebutuhan')->autoIncrement();
-            $table->integer('IDBarang');
-            $table->integer('IDPosko');
-            $table->integer('JumlahKebutuhan')->nullable();
-            $table->integer('JumlahDiterima')->nullable();
-            $table->dateTime('LastUpdateDate')->nullable();
-            $table->integer('LastUpdateBy')->nullable();
+            $table->uuid('IDKebutuhan')->primary();
+            $table->foreignUuid('IDBarang');
+            $table->foreignUuid('IDPosko');
+            $table->integer('JumlahKebutuhan');
+            $table->integer('JumlahDiterima')->default(0);
+            $table->timestamp('LastUpdateDate')->useCurrent()->useCurrentOnUpdate();
+            $table->foreignUuid('LastUpdateBy');
 
             $table->foreign('IDPosko')->references('IDPosko')->on('posko');
             $table->foreign('IDBarang')->references('IDBarang')->on('barang');
-
         });
     }
 

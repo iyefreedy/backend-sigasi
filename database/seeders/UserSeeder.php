@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -13,42 +14,38 @@ class UserSeeder extends Seeder
     public function run(): void
     {
 
-        $posko_utama = User::create([
-            'name' => 'posko utama',
-            'username' => 'posko_utama',
-            'phone' => '081122334455',
-            'email' => 'posko-utama@sisfosigasi.com',
-            'password'=> bcrypt('admin123')
+        $posko_utama = User::query()->create([
+            'Nama' => 'posko utama',
+            'Username' => 'posko_utama',
+            'NomorKontak' => '081122334455',
+            'KataSandi' => Hash::make('admin123'),
         ]);
 
-        $posko_utama->assignRole('posko-utama');
+        $posko_utama->assignRole('Posko Utama');
 
         $posko = User::create([
-            'name' => 'posko',
-            'username' => 'posko',
-            'phone' => '081122334455',
-            'email' => 'posko@sisfosigasi.com',
-            'password'=> bcrypt('admin123')
+            'Nama' => 'posko',
+            'Username' => 'posko',
+            'NomorKontak' => '081122334455',
+            'KataSandi' => Hash::make('admin123'),
         ]);
 
-        $posko->assignRole('posko');
+        $posko->assignRole('Posko');
 
         $bansos = User::create([
-            'name' => 'bansos',
-            'username' => 'bansos',
-            'phone' => '081122334455',
-            'email' => 'bansos@sisfosigasi.com',
-            'password'=> bcrypt('admin123')
+            'Nama' => 'bansos',
+            'Username' => 'bansos',
+            'NomorKontak' => '081122334455',
+            'KataSandi' => Hash::make('admin123'),
         ]);
 
         $bansos->assignRole('bansos');
 
         $kecamatan = User::create([
-            'name' => 'kecamatan',
-            'username' => 'kecamatan',
-            'phone' => '081122334455',
-            'email' => 'kecamatan@sisfosigasi.com',
-            'password'=> bcrypt('admin123')
+            'Nama' => 'kecamatan',
+            'Username' => 'kecamatan',
+            'NomorKontak' => '081122334455',
+            'KataSandi' => Hash::make('admin123'),
         ]);
 
         $kecamatan->assignRole('kecamatan');

@@ -12,15 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bantuan', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->integer('IDBantuan')->autoIncrement();
-            $table->integer('IDDonatur');
+            $table->uuid('IDBantuan')->primary();
+            $table->foreignUuid('IDDonatur');
             $table->dateTime('TanggalBantuan');
-            $table->dateTime('LastUpdateDate')->nullable();
-            $table->integer('LastUpdateBy')->nullable();
-
-            $table->foreign('IDDonatur')->references('IDDonatur')->on('donatur');
-
+            $table->timestamp('LastUpdateDate')->useCurrent()->useCurrentOnUpdate();
+            $table->foreignUuid('LastUpdateBy');
         });
     }
 

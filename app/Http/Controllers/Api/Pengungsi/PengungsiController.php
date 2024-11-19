@@ -16,11 +16,6 @@ use Illuminate\Support\Facades\Validator;
 
 class PengungsiController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:posko-utama|posko');
-    }
-
     public function index()
     {
         // menampilkan seluruh data pengungsi dengan dibatasi per 10 data
@@ -33,7 +28,7 @@ class PengungsiController extends Controller
     {
         // menampilkan detail pengungsi, degan relasi pendusuk, posko dan user
         $pengungsi = Pengungsi::with(['penduduk', 'posko.user'])->where('IDPengungsi', $id)->first();
-        if(!$pengungsi){
+        if (!$pengungsi) {
             return ApiResponse::badRequest('Data pengungsi tidak ditemukan.');
         }
 
@@ -44,22 +39,22 @@ class PengungsiController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [ // validasi parameter
-                'idPosko' => 'required|numeric', 
-                'idPenduduk' => 'required|numeric', 
-                'condition' => 'string|max:255', 
+                'idPosko' => 'required|numeric',
+                'idPenduduk' => 'required|numeric',
+                'condition' => 'string|max:255',
             ]);
 
-            if ($validator->fails()) {// jika parameter ada yang tidak sesuai dengan aturan, maka masuk kondisi error
+            if ($validator->fails()) { // jika parameter ada yang tidak sesuai dengan aturan, maka masuk kondisi error
                 return ApiResponse::badRequest($validator->errors());
             }
 
             $posko = Posko::where('IDPosko', $request->idPosko)->first();
             $user = User::where('id', $request->idPenduduk)->first();
-            if (!$posko){ // cek apakah posko ada, jika tidak ada maka return error
+            if (!$posko) { // cek apakah posko ada, jika tidak ada maka return error
                 return ApiResponse::badRequest('posko tidak ditemkan');
             }
 
-            if (!$user){// cek apakah user ada, jika tidak ada maka return error
+            if (!$user) { // cek apakah user ada, jika tidak ada maka return error
                 return ApiResponse::badRequest('user tidak ditemkan');
             }
 
@@ -93,8 +88,8 @@ class PengungsiController extends Controller
             }
             $validator = Validator::make($request->all(), [ // cek validasi
                 'idPosko' => 'required|numeric',
-                'idPenduduk' => 'required|numeric', 
-                'condition' => 'string|max:255', 
+                'idPenduduk' => 'required|numeric',
+                'condition' => 'string|max:255',
             ]);
 
 
@@ -105,11 +100,11 @@ class PengungsiController extends Controller
             $posko = Posko::where('IDPosko', $request->idPosko)->first();
             $user = User::where('id', $request->idPenduduk)->first();
 
-            if (!$posko){ // jika posko tidak ada maka retur error
+            if (!$posko) { // jika posko tidak ada maka retur error
                 return ApiResponse::badRequest('posko tidak ditemkan');
             }
 
-            if (!$user){ // jika user tidak ada maka muncul error
+            if (!$user) { // jika user tidak ada maka muncul error
                 return ApiResponse::badRequest('user tidak ditemkan');
             }
 
