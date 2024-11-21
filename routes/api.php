@@ -41,19 +41,19 @@ Route::middleware('auth:api')->group(function () {
     Route::controller(UserManagementController::class)
         ->prefix('user-management')
         ->group(function () {
-            Route::get('index', 'index');
-            Route::get('show/{id}', 'show');
-            Route::post('store', 'store');
-            Route::put('update/{id}', 'update');
+            Route::get('/', 'index');
+            Route::get('/{id}', 'show');
+            Route::post('', 'store');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(PoskoController::class)
         ->prefix('posko')
         ->group(function () {
-            Route::get('index', 'index');
-            Route::get('show/{id}', 'show');
-            Route::post('store', 'store');
-            Route::put('update/{id}', 'update');
+            Route::get('/', 'index');
+            Route::get('/{id}', 'show');
+            Route::post('/', 'store');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(PengungsiController::class)
@@ -106,18 +106,18 @@ Route::middleware('auth:api')->group(function () {
         ->prefix('penduduk')
         ->group(function () {
             Route::get('/', 'index');
-            Route::post('store', 'store');
-            Route::get('show/{id}', 'show');
-            Route::put('update/{id}', 'update');
+            Route::post('/', 'store');
+            Route::get('/{id}', 'show');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(DonaturController::class)
         ->prefix('donatur')
         ->group(function () {
             Route::get('/', 'index');
-            Route::post('store', 'store');
-            Route::get('show/{id}', 'show');
-            Route::put('update/{id}', 'update');
+            Route::post('', 'store');
+            Route::get('/{id}', 'show');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(BantuanController::class)

@@ -8,6 +8,7 @@ use App\Models\Donatur\Donatur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class DonaturController extends Controller
@@ -41,23 +42,23 @@ class DonaturController extends Controller
 
             // Validasi input dari request
             $validator = Validator::make($request->all(), [
-                'nama_perusahaan' => 'nullable|string|max:50', // 'nama_perusahaan' bersifat opsional, tipe string, maksimal 50 karakter
-                'alamat' => 'required|string|max:255', // 'alamat' wajib, tipe string, maksimal 255 karakter
-                'nomor_kontak' => 'required|string|max:16', // 'nomor_kontak' wajib, tipe string, maksimal 16 karakter
+                'NamaPerusahaan' => 'nullable|string|max:50', // 'nama_perusahaan' bersifat opsional, tipe string, maksimal 50 karakter
+                'Alamat' => 'required|string|max:255', // 'alamat' wajib, tipe string, maksimal 255 karakter
+                'NomorKontak' => 'required|string|max:16', // 'nomor_kontak' wajib, tipe string, maksimal 16 karakter
             ]);
 
             // Jika validasi gagal, kembalikan respons error
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 422); // Mengembalikan error validasi dengan kode 422
+                return response()->json($validator->errors(), 400); // Mengembalikan error validasi dengan kode 422
             }
 
             // Membuat entri baru pada tabel 'Donatur' menggunakan data dari request
             $donatur = Donatur::lockForUpdate()->create([
-                'NamaPerusahaan' => $request->nama_perusahaan, // Menyimpan 'nama_perusahaan' dari request
-                'Alamat' => $request->alamat, // Menyimpan 'alamat' dari request
-                'NomorKontak' => $request->nomor_kontak, // Menyimpan 'nomor_kontak' dari request
+                'NamaPerusahaan' => $request->NamaPerusahaan, // Menyimpan 'nama_perusahaan' dari request
+                'Alamat' => $request->Alamat, // Menyimpan 'alamat' dari request
+                'NomorKontak' => $request->NomorKontak, // Menyimpan 'nomor_kontak' dari request
                 'LastUpdateDate' => now(), // Menyimpan tanggal update terakhir
-                'LastUpdateBy' => Auth::user()->id, // Menyimpan ID user yang melakukan update
+                'LastUpdateBy' => Auth::user()->IDPengguna, // Menyimpan ID user yang melakukan update
             ]);
 
             // Jika data donatur berhasil disimpan
@@ -111,23 +112,23 @@ class DonaturController extends Controller
 
             // Validasi input dari request
             $validator = Validator::make($request->all(), [
-                'nama_perusahaan' => 'nullable|string|max:50', // nama_perusahaan bersifat opsional, maksimal 50 karakter
-                'alamat' => 'required|string|max:255', // alamat wajib, maksimal 255 karakter
-                'nomor_kontak' => 'required|string|max:16', // nomor_kontak wajib, maksimal 16 karakter
+                'NamaPerusahaan' => 'nullable|string|max:50', // nama_perusahaan bersifat opsional, maksimal 50 karakter
+                'Alamat' => 'required|string|max:255', // alamat wajib, maksimal 255 karakter
+                'NomorKontak' => 'required|string|max:16', // nomor_kontak wajib, maksimal 16 karakter
             ]);
 
             // Jika validasi gagal, kembalikan respons error
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 422); // Mengembalikan error validasi dengan kode 422
+                return response()->json($validator->errors(), 400); // Mengembalikan error validasi dengan kode 422
             }
 
             // Mengupdate data donatur di tabel berdasarkan ID yang diberikan
             $donatur = Donatur::lockForUpdate()->where('IDDonatur', $id)->update([
-                'NamaPerusahaan' => $request->nama_perusahaan, // Mengupdate nama perusahaan
-                'Alamat' => $request->alamat, // Mengupdate alamat
-                'NomorKontak' => $request->nomor_kontak, // Mengupdate nomor kontak
+                'NamaPerusahaan' => $request->NamaPerusahaan, // Mengupdate nama perusahaan
+                'Alamat' => $request->Alamat, // Mengupdate alamat
+                'NomorKontak' => $request->NomorKontak, // Mengupdate nomor kontak
                 'LastUpdateDate' => now(), // Mengupdate waktu terakhir diperbarui
-                'LastUpdateBy' => Auth::user()->id, // Mengupdate user yang memperbarui data
+                'LastUpdateBy' => Auth::user()->IDPengguna, // Mengupdate user yang memperbarui data
             ]);
 
             // Jika proses update berhasil

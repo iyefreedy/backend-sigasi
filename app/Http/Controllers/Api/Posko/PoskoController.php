@@ -14,7 +14,7 @@ class PoskoController extends Controller
 {
     public function index()
     {
-        $posko = Posko::with(['user'])->paginate(10); // untuk dapatkan semua data posko, dengan dibatasi 10 data
+        $posko = Posko::with(['user'])->get(); // untuk dapatkan semua data posko, dengan dibatasi 10 data
         return ApiResponse::success($posko);
     }
 

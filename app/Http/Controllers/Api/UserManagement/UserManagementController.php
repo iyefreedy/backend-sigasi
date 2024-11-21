@@ -17,7 +17,7 @@ class UserManagementController extends Controller
 
     public function index()
     {
-        $user = User::with('roles')->whereNull('deleted_at')->paginate(10);
+        $user = User::all();
         return ApiResponse::success($user);
     }
 
