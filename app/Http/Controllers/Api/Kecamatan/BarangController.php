@@ -19,7 +19,7 @@ class BarangController extends Controller
             // Mengambil data barang beserta relasi 'jenisBarang' menggunakan eager loading
             $barang = Barang::with([
                 'jenisBarang' // Memuat relasi 'jenisBarang' untuk setiap barang
-            ])->paginate(10); // Membatasi hasil menjadi 10 data per halaman
+            ])->get(); // Membatasi hasil menjadi 10 data per halaman
 
             // Mengembalikan respons sukses dengan data barang yang dipaginasi
             return ApiResponse::success($barang);

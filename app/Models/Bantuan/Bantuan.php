@@ -3,12 +3,13 @@
 namespace App\Models\Bantuan;
 
 use App\Models\Donatur\Donatur;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Bantuan extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
     protected $primaryKey = 'IDBantuan';
     protected $table = 'bantuan';
     protected $guarded = [];

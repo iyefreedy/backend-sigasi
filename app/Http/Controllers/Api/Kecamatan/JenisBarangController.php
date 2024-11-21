@@ -16,13 +16,10 @@ class JenisBarangController extends Controller
     {
         try {
             // Mengambil data jenis barang dengan pagination (10 data per halaman)
-            $jenis_barang = JenisBarang::paginate(10);
+            $jenis_barang = JenisBarang::all();
 
             // Mengembalikan response sukses dengan data jenis barang
             return ApiResponse::success($jenis_barang);
-
-            // Kode ini tidak akan pernah dijalankan karena return sebelumnya sudah dipanggil
-            return ApiResponse::badRequest();
         } catch (\Throwable $th) {
             // Menangkap exception dan mengembalikan pesan error dengan status 500 (internal server error)
             return response()->json(['message' => $th->getMessage()], 500);

@@ -7,9 +7,11 @@ use App\Http\Helpers\ApiResponse;
 use App\Models\Bantuan\Bantuan;
 use App\Models\Bantuan\Bantuan_Dtl;
 use App\Models\Barang\Barang;
+use App\Models\Penyimpanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class BantuanController extends Controller
@@ -64,8 +66,8 @@ class BantuanController extends Controller
 
             // Validasi data yang diterima dari request
             $validator = Validator::make($request->all(), [
-                'donatur' => 'integer|exists:donatur,IDDonatur', // Memastikan bahwa 'donatur' adalah integer dan ada dalam tabel 'donatur' berdasarkan 'IDDonatur'
-                'tanggal_bantuan' => 'date|nullable', // Memastikan 'tanggal_bantuan' adalah tanggal yang valid, boleh null
+                'IDDonatur' => 'required|exists:donatur,IDDonatur', // Memastikan bahwa 'donatur' adalah integer dan ada dalam tabel 'donatur' berdasarkan 'IDDonatur'
+                'TanggalBantuan' => 'date|nullable', // Memastikan 'tanggal_bantuan' adalah tanggal yang valid, boleh null
             ]);
 
             // Jika validasi gagal, kembalikan respons error
@@ -73,26 +75,40 @@ class BantuanController extends Controller
                 return response()->json($validator->errors(), 422); // Menampilkan error validasi dengan status code 422
             }
 
+            Log::warning($request->TanggalBantuan);
+
             // Membuat entri baru di tabel 'bantuan' dengan data dari request
-            $bantuan = Bantuan::lockForUpdate()->create([
-                'IDDonatur' => $request->donatur, // Menyimpan ID donatur
-                'TanggalBantuan' => $request->tanggal_bantuan, // Menyimpan tanggal bantuan
+            $bantuan = Bantuan::create([
+                'IDDonatur' => $request->IDDonatur, // Menyimpan ID donatur
+                'TanggalBantuan' => $request->TanggalBantuan, // Menyimpan tanggal bantuan
                 'LastUpdateDate' => now(), // Menyimpan waktu update terakhir
-                'LastUpdateBy' => Auth::user()->id, // Menyimpan ID user yang melakukan update terakhir
+                'LastUpdateBy' => Auth::user()->IDPengguna, // Menyimpan ID user yang melakukan update terakhir
             ]);
+
+
 
             // Jika proses penyimpanan bantuan berhasil
             if ($bantuan) {
 
                 // Melakukan iterasi untuk setiap barang yang diterima dari request
-                foreach ($request->barang as $item) {
+                foreach ($request->DetailBantuan as $item) {
 
                     // Menyimpan detail bantuan di tabel 'Bantuan_Dtl'
-                    $bantuan_detail = Bantuan_Dtl::lockForUpdate()->insert([
+                    $bantuan_detail = Bantuan_Dtl::create([
+                        'IDBantuanDTL' => $item['IDBantuanDTL'],
                         'IDBantuan' => $bantuan->IDBantuan, // Menyimpan ID bantuan
-                        'IDBarang' => $item['id_barang'], // Menyimpan ID barang
-                        'Jumlah' => $item['jumlah_barang'], // Menyimpan jumlah barang
+                        'IDBarang' => $item['IDBarang'], // Menyimpan ID barang
+                        'Jumlah' => $item['Jumlah'], // Menyimpan jumlah barang
                     ]);
+
+                    Log::warning($item);
+
+                    $penyimpanan = Penyimpanan::query()->where('IDBarang', '=', $item['IDBarang'])->firstOrCreate([
+                        'IDBarang' => $item['IDBarang'], // Menyimpan ID barang
+                        'Jumlah' => 0, // Menyimpan jumlah barang
+                    ]);
+
+                    $penyimpanan->increment('Jumlah', $item['Jumlah']);
                 }
 
                 // Jika proses penyimpanan detail bantuan berhasil
@@ -116,6 +132,7 @@ class BantuanController extends Controller
 
             // Rollback transaksi jika terjadi exception
             DB::rollback();
+            Log::error($th);
             return ApiResponse::badRequest($th->getMessage()); // Mengembalikan error dengan pesan exception
         }
     }

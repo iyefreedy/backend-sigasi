@@ -59,38 +59,38 @@ Route::middleware('auth:api')->group(function () {
     Route::controller(PengungsiController::class)
         ->prefix('pengungsi')
         ->group(function () {
-            Route::get('index', 'index');
-            Route::get('show/{id}', 'show');
-            Route::post('store', 'store');
-            Route::put('update/{id}', 'update');
+            Route::get('', 'index');
+            Route::get('/{id}', 'show');
+            Route::post('', 'store');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(KebutuhanController::class)
         ->prefix('kebutuhan')
         ->group(function () {
-            Route::get('index', 'index');
-            Route::get('show/{id}', 'show');
-            Route::post('store', 'store');
-            Route::put('qtyReceived/{id}', 'qtyReceived');
-            Route::put('update/{id}', 'update');
+            Route::get('', 'index');
+            Route::get('/{id}', 'show');
+            Route::post('', 'store');
+            Route::put('/{id}', 'qtyReceived');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(BarangController::class)
         ->prefix('barang')
         ->group(function () {
             Route::get('/', 'index');
-            Route::post('store', 'store');
-            Route::get('show/{id}', 'show');
-            Route::put('update/{id}', 'update');
+            Route::post('/', 'store');
+            Route::get('/{id}', 'show');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(JenisBarangController::class)
         ->prefix('jenis-barang')
         ->group(function () {
             Route::get('/', 'index');
-            Route::post('store', 'store');
-            Route::get('show/{id}', 'show');
-            Route::put('update/{id}', 'update');
+            Route::post('/', 'store');
+            Route::get('/{id}', 'show');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(KelompokController::class)
@@ -125,9 +125,9 @@ Route::middleware('auth:api')->group(function () {
         ->group(function () {
             Route::get('/', 'index');
             Route::get('/createOrEdit', 'createOrEdit');
-            Route::post('store', 'store');
-            Route::get('show/{id}', 'show');
-            Route::put('update/{id}', 'update');
+            Route::post('/', 'store');
+            Route::get('/{id}', 'show');
+            Route::put('/{id}', 'update');
         });
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
