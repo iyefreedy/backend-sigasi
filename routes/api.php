@@ -68,9 +68,9 @@ Route::middleware('auth:api')->group(function () {
     Route::controller(KebutuhanController::class)
         ->prefix('kebutuhan')
         ->group(function () {
-            Route::get('', 'index');
+            Route::get('/', 'index');
             Route::get('/{id}', 'show');
-            Route::post('', 'store');
+            Route::post('/', 'store');
             Route::put('/{id}', 'qtyReceived');
             Route::put('/{id}', 'update');
         });
@@ -97,9 +97,9 @@ Route::middleware('auth:api')->group(function () {
         ->prefix('kelompok')
         ->group(function () {
             Route::get('/', 'index');
-            Route::post('store', 'store');
-            Route::get('show/{id}', 'show');
-            Route::put('update/{id}', 'update');
+            Route::post('/', 'store');
+            Route::get('/{id}', 'show');
+            Route::put('/{id}', 'update');
         });
 
     Route::controller(PendudukController::class)
