@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class KebutuhanController extends Controller
@@ -19,7 +20,7 @@ class KebutuhanController extends Controller
     public function index()
     {
         // menampilkan data kebutuhan dengan dibatasi 10 record
-        $kebutuhan = Kebutuhan::with(['posko.user', 'barang.jenisBarang'])->all();
+        $kebutuhan = Kebutuhan::with(['posko.user', 'barang.jenisBarang'])->get();
         return ApiResponse::success($kebutuhan);
     }
 
@@ -37,35 +38,30 @@ class KebutuhanController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [ // cek validasi sesuai parameter
-                'idPosko' => 'numeric',
+                'IDPosko' => 'required|exists:posko,IDPosko',
+                'IDBarang' => 'required|exists:barang,IDBarang',
+                'JumlahKebutuhan' => 'integer',
+                'JumlahDiterima' => 'optional'
             ]);
 
             if ($validator->fails()) { // jika parameter ada yang tidak sesuai maka return error
-                return ApiResponse::badRequest($validator->errors());
+                return ApiResponse::badRequest(["errors" => $validator->errors()]);
             }
 
             DB::beginTransaction();
-            $arr_kebutuhan = []; // menampung data
-            foreach ($request->product as $product) {
-                $kebutuhan = Kebutuhan::lockForUpdate()->create([
-                    'IDBarang' => $product['idProduct'],
-                    'IDPosko' => $request->idPosko,
-                    'JumlahKebutuhan' => $product['qty'],
-                    'LastUpdateDate' => Carbon::now(),
-                    'LastUpdateBy' => Auth::user()->id,
-                ]);
-
-                if (!$kebutuhan) { // jika kenutuhan ada error, maka batalkan update dan return error
-                    DB::rollBack();
-                    return ApiResponse::badRequest('Data kebutuhan tidak dapat disimpan.');
-                }
-
-                array_push($arr_kebutuhan, $kebutuhan); // jika tidak error maka mengirimkan array
-            }
+            $kebutuhan = Kebutuhan::query()->create([
+                'IDBarang' => $request->IDBarang,
+                'IDPosko' => $request->IDPosko,
+                'JumlahKebutuhan' => $request->JumlahKebutuhan,
+                'JumlahDiterima' => $request->JumlahDiterima ?? 0,
+                'LastUpdateDate' => Carbon::now(),
+                'LastUpdateBy' => Auth::user()->IDPengguna,
+            ]);
 
             DB::commit();
-            return ApiResponse::created($arr_kebutuhan); // memnuat record baru
+            return ApiResponse::created($kebutuhan); // memnuat record baru
         } catch (Exception $e) {
+            Log::error($e);
             return ApiResponse::badRequest($e);
         }
     }

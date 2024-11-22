@@ -8,6 +8,7 @@ use App\Models\Posko\Posko;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class PoskoController extends Controller
@@ -32,11 +33,12 @@ class PoskoController extends Controller
     public function store(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(), [ // validasi data 
-                'idUser' => 'required|numeric',
-                'location' => 'required|max:50',
-                'problem' => 'required',
-                'solution' => 'required',
+            $validator = Validator::make($request->all(), [
+                'IDPosko' => 'nullable',
+                'IDKetua' => 'required',
+                'Lokasi' => 'required',
+                'Masalah' => 'required',
+                'SolusiMasalah' => 'required',
 
             ]);
 
@@ -44,14 +46,18 @@ class PoskoController extends Controller
                 return ApiResponse::badRequest($validator->errors());
             }
 
-            DB::beginTransaction(); // memulai data transaksi
-            $posko = Posko::lockForUpdate()->create([ // membuat record baru
-                'Ketua' => $request->idUser,
-                'Lokasi' => $request->location,
-                'Masalah' => $request->problem,
-                'SolusiMasalah' => $request->solution,
+            Log::debug($request->all());
 
+            DB::beginTransaction(); // memulai data transaksi
+            $posko = Posko::query()->updateOrCreate([
+                'IDPosko' => $request->IDPosko,
+            ], [
+                'IDKetua' => $request->IDKetua,
+                'Lokasi' => $request->Lokasi,
+                'Masalah' => $request->Masalah,
+                'SolusiMasalah' => $request->SolusiMasalah,
             ]);
+
             if ($posko) { // jika kondisi ada maka lakukan commit
                 DB::commit();
                 return ApiResponse::success($posko);
@@ -59,7 +65,8 @@ class PoskoController extends Controller
                 DB::rollBack();
                 return ApiResponse::badRequest('Data posko tidak dapat disimpan.');
             }
-        } catch (Exception $e) { // jika query ada yang salah maka tampil disini
+        } catch (Exception $e) {
+            Log::error($e);
             return ApiResponse::badRequest('Data tidak dapat disimpan.');
         }
     }

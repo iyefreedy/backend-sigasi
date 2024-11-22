@@ -26,7 +26,7 @@ class BantuanController extends Controller
             $bantuan = Bantuan::with([
                 'donatur', // Memuat relasi 'donatur'
                 'bantuanDetail.barang' // Memuat relasi 'bantuanDetail' dan 'barang'
-            ])->all(); // Menggunakan pagination untuk membatasi data menjadi 10 per halaman
+            ])->get(); // Menggunakan pagination untuk membatasi data menjadi 10 per halaman
 
             // Mengembalikan respons sukses dengan data bantuan yang dipaginasi
             return ApiResponse::success($bantuan);
@@ -91,7 +91,7 @@ class BantuanController extends Controller
             if ($bantuan) {
 
                 // Melakukan iterasi untuk setiap barang yang diterima dari request
-                foreach ($request->DetailBantuan as $item) {
+                foreach ($request->bantuan_detail as $item) {
 
                     // Menyimpan detail bantuan di tabel 'Bantuan_Dtl'
                     $bantuan_detail = Bantuan_Dtl::create([
@@ -103,9 +103,8 @@ class BantuanController extends Controller
 
                     Log::warning($item);
 
-                    $penyimpanan = Penyimpanan::query()->where('IDBarang', '=', $item['IDBarang'])->firstOrCreate([
-                        'IDBarang' => $item['IDBarang'], // Menyimpan ID barang
-                        'Jumlah' => 0, // Menyimpan jumlah barang
+                    $penyimpanan = Penyimpanan::query()->firstOrCreate([
+                        'IDBarang' => $item['IDBarang']
                     ]);
 
                     $penyimpanan->increment('Jumlah', $item['Jumlah']);
