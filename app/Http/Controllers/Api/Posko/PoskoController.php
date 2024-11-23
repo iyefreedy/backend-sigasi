@@ -106,4 +106,11 @@ class PoskoController extends Controller
             return ApiResponse::badRequest($e);
         }
     }
+
+    public function kebutuhan(string $id)
+    {
+        $posko = Posko::query()->find($id);
+
+        return ApiResponse::success($posko->kebutuhan);
+    }
 }

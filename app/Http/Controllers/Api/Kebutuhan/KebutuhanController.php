@@ -41,7 +41,7 @@ class KebutuhanController extends Controller
                 'IDPosko' => 'required|exists:posko,IDPosko',
                 'IDBarang' => 'required|exists:barang,IDBarang',
                 'JumlahKebutuhan' => 'integer',
-                'JumlahDiterima' => 'optional'
+                'JumlahDiterima' => 'nullable'
             ]);
 
             if ($validator->fails()) { // jika parameter ada yang tidak sesuai maka return error

@@ -54,6 +54,7 @@ Route::middleware('auth:api')->group(function () {
             Route::get('/{id}', 'show');
             Route::post('/', 'store');
             Route::put('/{id}', 'update');
+            Route::get('/{id}/kebutuhan', 'kebutuhan');
         });
 
     Route::controller(PengungsiController::class)
