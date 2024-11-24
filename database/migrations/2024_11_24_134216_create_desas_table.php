@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kelompok', function (Blueprint $table) {
-            $table->uuid('IDKelompok')->primary();
-            $table->string('NamaKelompok', 50);
-            $table->string('Keterangan');
+        Schema::create('desa', function (Blueprint $table) {
+            $table->id('IDDesa');
+            $table->foreignId('IDKecamatan');
+            $table->string('Nama');
+
+            $table->foreign('IDKecamatan')->on('kecamatan')->references('IDKecamatan');
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kelompok');
+        Schema::dropIfExists('desa');
     }
 };

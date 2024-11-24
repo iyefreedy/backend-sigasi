@@ -11,6 +11,10 @@ use App\Http\Controllers\Api\Penduduk\PendudukController;
 use App\Http\Controllers\Api\Pengungsi\PengungsiController;
 use App\Http\Controllers\Api\Bantuan\BantuanController;
 use App\Http\Controllers\Api\UserManagement\UserManagementController;
+use App\Http\Controllers\DistribusiController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KeluargaAnggotaController;
+use App\Http\Controllers\KeluargaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +36,9 @@ Route::get('/', function () {
 Route::post('authenticate', [\App\Http\Controllers\Api\AuthController::class, 'authenticate']);
 Route::post('logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
 Route::post('refresh', [\App\Http\Controllers\Api\AuthController::class, 'refresh']);
+
+Route::resource('kecamatan', KecamatanController::class);
+Route::get('/kecamatan/{id}/desa', [KecamatanController::class, 'desa']);
 
 Route::middleware('auth:api')->group(function () {
     Route::get('user', function (Request $request) {
@@ -132,4 +139,8 @@ Route::middleware('auth:api')->group(function () {
         });
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    Route::resource('distribusi', DistribusiController::class);
+    Route::resource('keluarga', KeluargaController::class);
+    Route::resource('keluarga.anggota', KeluargaAnggotaController::class);
 });

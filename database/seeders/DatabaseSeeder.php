@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             BarangSeeder::class,
+            KelompokSeeder::class,
+            KecamatanSeeder::class,
         ]);
     }
 }

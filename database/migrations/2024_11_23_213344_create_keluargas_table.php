@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penduduk', function (Blueprint $table) {
-            $table->uuid('IDPenduduk')->primary();
-            $table->char('KTP', 16)->nullable();
-            $table->string('Nama', 100);
-            $table->string('Alamat', 100);
+        Schema::create('keluarga', function (Blueprint $table) {
+            $table->uuid('IDKeluarga')->primary();
+            $table->char('NomorKK', 16);
+            $table->string('Alamat');
             $table->foreignId('IDDesa');
             $table->foreignId('IDKecamatan');
-            $table->date('TanggalLahir');
-            $table->enum('JenisKelamin', ['Laki-Laki', 'Perempuan']);
-            $table->foreignUuid('IDKelompok');
             $table->timestamp('LastUpdateDate')->useCurrent()->useCurrentOnUpdate();
             $table->foreignUuid('LastUpdateBy');
         });
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penduduk');
+        Schema::dropIfExists('keluarga');
     }
 };

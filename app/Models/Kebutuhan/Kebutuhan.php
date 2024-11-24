@@ -17,6 +17,8 @@ class Kebutuhan extends Model
     protected $guarded = [];
     public $timestamps = false;
 
+    protected $with = ['barang'];
+
     public function posko()
     {
         return $this->hasOne(Posko::class, 'IDPosko', 'IDPosko');

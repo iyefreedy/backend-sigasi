@@ -7,6 +7,7 @@ use App\Http\Helpers\ApiResponse;
 use App\Models\Penduduk\Penduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class PendudukController extends Controller
@@ -17,14 +18,17 @@ class PendudukController extends Controller
     public function index(Request $request)
     {
         try {
-            if (!$request->user()->hasPermissionTo('penduduk:view-any')) {
-                return ApiResponse::forbidden();
-            }
-            // Mengambil daftar Penduduk dengan relasi kelompok, dan melakukan pagination
-            $penduduk = Penduduk::with(['kelompok'])->paginate(10);
 
+            // Mengambil daftar Penduduk dengan relasi kelompok, dan melakukan pagination
+            $penduduk = Penduduk::with(['kelompok']);
+
+            if (isset($request->idDesa) && isset($request->idKelompok)) {
+                $penduduk = $penduduk->where('IDDesa', $request->get('idDesa'))->where('IDKelompok', $request->get('idKelompok'));
+            }
+
+            Log::debug($request->get('idDesa'));
             // Mengembalikan response sukses dengan data penduduk
-            return ApiResponse::success($penduduk);
+            return ApiResponse::success($penduduk->get());
         } catch (\Throwable $th) {
             // Menangkap exception dan mengembalikan pesan error
             return ApiResponse::badRequest($th->getMessage());

@@ -75,10 +75,10 @@ class PoskoController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'idUser' => 'required',
-                'location' => 'required|max:50',
-                'problem' => 'required',
-                'solution' => 'required',
+                'IDKetua' => 'required',
+                'Lokasi' => 'required',
+                'Masalah' => 'required',
+                'SolusiMasalah' => 'required',
 
             ]);
 
@@ -88,10 +88,10 @@ class PoskoController extends Controller
 
             DB::beginTransaction();
             $posko = Posko::where('IDPosko', $id)->lockForUpdate()->update([ // update data berdasarkan id posko
-                'Ketua' => $request->idUser,
-                'Lokasi' => $request->location,
-                'Masalah' => $request->problem,
-                'SolusiMasalah' => $request->solution,
+                'IDKetua' => $request->IDKetua,
+                'Lokasi' => $request->Lokasi,
+                'Masalah' => $request->Masalah,
+                'SolusiMasalah' => $request->SolusiMasalah,
 
             ]);
             if ($posko) { // jika hasilnya true maka lakukan commit
