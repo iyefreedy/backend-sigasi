@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('penyimpanan', function (Blueprint $table) {
             $table->id('IDPenyimpanan');
             $table->foreignUuid('IDBarang');
-            $table->unsignedInteger('Jumlah');
+            $table->unsignedInteger('Jumlah')->default(0);
             $table->timestamps();
         });
     }
