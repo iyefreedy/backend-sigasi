@@ -20,7 +20,7 @@ class DonaturController extends Controller
     {
         try {
             // Mengambil data donatur dengan paginasi
-            $donatur = Donatur::all(); // Membatasi hasil menjadi 10 per halaman
+            $donatur = Donatur::with(['bantuan'])->get(); // Membatasi hasil menjadi 10 per halaman
 
             // Mengembalikan respons sukses dengan data donatur yang dipaginasi
             return ApiResponse::success($donatur);
@@ -44,6 +44,7 @@ class DonaturController extends Controller
             $validator = Validator::make($request->all(), [
                 'NamaPerusahaan' => 'nullable|string|max:50', // 'nama_perusahaan' bersifat opsional, tipe string, maksimal 50 karakter
                 'Alamat' => 'required|string|max:255', // 'alamat' wajib, tipe string, maksimal 255 karakter
+                'NamaKontak' => 'required|string',
                 'NomorKontak' => 'required|string|max:16', // 'nomor_kontak' wajib, tipe string, maksimal 16 karakter
             ]);
 
@@ -56,6 +57,7 @@ class DonaturController extends Controller
             $donatur = Donatur::lockForUpdate()->create([
                 'NamaPerusahaan' => $request->NamaPerusahaan, // Menyimpan 'nama_perusahaan' dari request
                 'Alamat' => $request->Alamat, // Menyimpan 'alamat' dari request
+                'NamaKontak' => $request->NamaKontak,
                 'NomorKontak' => $request->NomorKontak, // Menyimpan 'nomor_kontak' dari request
                 'LastUpdateDate' => now(), // Menyimpan tanggal update terakhir
                 'LastUpdateBy' => Auth::user()->IDPengguna, // Menyimpan ID user yang melakukan update
@@ -114,6 +116,7 @@ class DonaturController extends Controller
             $validator = Validator::make($request->all(), [
                 'NamaPerusahaan' => 'nullable|string|max:50', // nama_perusahaan bersifat opsional, maksimal 50 karakter
                 'Alamat' => 'required|string|max:255', // alamat wajib, maksimal 255 karakter
+                'NamaKontak' => 'required|string',
                 'NomorKontak' => 'required|string|max:16', // nomor_kontak wajib, maksimal 16 karakter
             ]);
 
@@ -126,6 +129,7 @@ class DonaturController extends Controller
             $donatur = Donatur::lockForUpdate()->where('IDDonatur', $id)->update([
                 'NamaPerusahaan' => $request->NamaPerusahaan, // Mengupdate nama perusahaan
                 'Alamat' => $request->Alamat, // Mengupdate alamat
+                'NamaKontak' => $request->NamaKontak,
                 'NomorKontak' => $request->NomorKontak, // Mengupdate nomor kontak
                 'LastUpdateDate' => now(), // Mengupdate waktu terakhir diperbarui
                 'LastUpdateBy' => Auth::user()->IDPengguna, // Mengupdate user yang memperbarui data

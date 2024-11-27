@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'NomorKontak' => '081122334455',
             'KataSandi' => Hash::make('admin123'),
         ]);
-        $posko_utama->assignRole('Posko Utama');
+        $posko_utama->assignRole('posko Utama');
 
         $posko_utama = User::query()->create([
             'Nama' => 'posko utama 2',
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'NomorKontak' => '081122334455',
             'KataSandi' => Hash::make('admin123'),
         ]);
-        $posko_utama->assignRole('Posko Utama');
+        $posko_utama->assignRole('posko Utama');
 
         $posko_utama = User::query()->create([
             'Nama' => 'posko utama 3',
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'NomorKontak' => '081122334455',
             'KataSandi' => Hash::make('admin123'),
         ]);
-        $posko_utama->assignRole('Posko Utama');
+        $posko_utama->assignRole('posko Utama');
 
         $posko = User::create([
             'Nama' => 'Posko 1',
@@ -44,21 +44,21 @@ class UserSeeder extends Seeder
             'NomorKontak' => '081122334455',
             'KataSandi' => Hash::make('admin123'),
         ]);
-        $posko->assignRole('Posko');
+        $posko->assignRole('posko');
         $posko = User::create([
             'Nama' => 'Posko 2',
             'Username' => 'posko2',
             'NomorKontak' => '081122334455',
             'KataSandi' => Hash::make('admin123'),
         ]);
-        $posko->assignRole('Posko');
+        $posko->assignRole('posko');
         $posko = User::create([
             'Nama' => 'Posko 3',
             'Username' => 'posko3',
             'NomorKontak' => '081122334455',
             'KataSandi' => Hash::make('admin123'),
         ]);
-        $posko->assignRole('Posko');
+        $posko->assignRole('posko');
 
         $bansos = User::create([
             'Nama' => 'Bansos 1',

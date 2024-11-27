@@ -20,7 +20,7 @@ class KelompokController extends Controller
 
         try {
             // Mengambil daftar Kelompok dengan pagination 10 item per halaman
-            $kelompok = Kelompok::all();
+            $kelompok = Kelompok::query()->orderBy('NamaKelompok')->get();
 
             // Mengembalikan response sukses dengan data kelompok
             return ApiResponse::success($kelompok);

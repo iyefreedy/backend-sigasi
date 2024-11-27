@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('IDKebutuhan')->primary();
             $table->foreignUuid('IDBarang');
             $table->foreignUuid('IDPosko');
-            $table->integer('JumlahKebutuhan');
+            $table->integer('JumlahKebutuhan')->default(0);
             $table->integer('JumlahDiterima')->default(0);
             $table->timestamp('LastUpdateDate')->useCurrent()->useCurrentOnUpdate();
             $table->foreignUuid('LastUpdateBy');

@@ -49,14 +49,15 @@ class KebutuhanController extends Controller
             }
 
             DB::beginTransaction();
-            $kebutuhan = Kebutuhan::query()->create([
+            $kebutuhan = Kebutuhan::query()->firstOrCreate([
                 'IDBarang' => $request->IDBarang,
                 'IDPosko' => $request->IDPosko,
-                'JumlahKebutuhan' => $request->JumlahKebutuhan,
-                'JumlahDiterima' => $request->JumlahDiterima ?? 0,
+            ], [
                 'LastUpdateDate' => Carbon::now(),
-                'LastUpdateBy' => Auth::user()->IDPengguna,
+                'LastUpdateBy' => $request->user()->IDPengguna,
             ]);
+
+            $kebutuhan->increment('JumlahKebutuhan', $request->JumlahKebutuhan);
 
             DB::commit();
             return ApiResponse::created($kebutuhan); // memnuat record baru

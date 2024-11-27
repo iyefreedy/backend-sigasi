@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('IDDonatur')->primary();
             $table->string('NamaPerusahaan', 50);
             $table->string('Alamat', 255);
+            $table->string('NamaKontak', 100);
             $table->string('NomorKontak', 16);
             $table->timestamp('LastUpdateDate')->useCurrent()->useCurrentOnUpdate();
             $table->foreignUuid('LastUpdateBy');
