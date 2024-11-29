@@ -24,11 +24,11 @@ class KelompokSeeder extends Seeder
             ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Ibu Bersalin/Nifas', 'Keterangan' => 'Mempunyai anak BADUTA (bawah dua tahun)'],
             ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Ibu Hamil', 'Keterangan' => 'Ibu hamil'],
             ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Non rentan (Pria)', 'Keterangan' => '< 60 tahun'],
-            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Non rentan (Pria)', 'Keterangan' => '< 60 tahun'],
-            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Usia Lanjut (wanita)', 'Keterangan' => '≥ 60 tahun'],
-            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Usia Lanjut (pria)', 'Keterangan' => '≥ 60 tahun'],
-            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Usia Lanjut Risiko Tinggi (wanita)', 'Keterangan' => '≥ 70 tahun'],
-            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Usia Lanjut Risiko Tinggi (pria)', 'Keterangan' => '≥ 70 tahun'],
+            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Non rentan (Wanita)', 'Keterangan' => '< 60 tahun'],
+            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Usia Lanjut (Wanita)', 'Keterangan' => '≥ 60 tahun'],
+            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Usia Lanjut (Pria)', 'Keterangan' => '≥ 60 tahun'],
+            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Usia Lanjut Risiko Tinggi (Wanita)', 'Keterangan' => '≥ 70 tahun'],
+            ['IDKelompok' => Str::uuid(), 'NamaKelompok' => 'Penduduk Usia Lanjut Risiko Tinggi (Pria)', 'Keterangan' => '≥ 70 tahun'],
         ];
 
         // Create records in the database

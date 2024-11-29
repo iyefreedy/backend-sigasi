@@ -23,7 +23,7 @@ class KeluargaController extends Controller
             return ApiResponse::success(Keluarga::where('IDDesa', $idDesa)->where('IDKecamatan', $idKecamatan)->orderBy('LastUpdateBy', 'DESC')->get());
         }
 
-        return ApiResponse::success(Keluarga::all());
+        return ApiResponse::success(Keluarga::with(['anggota'])->get());
     }
 
     public function show(string $id)

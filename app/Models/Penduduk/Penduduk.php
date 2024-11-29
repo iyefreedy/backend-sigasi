@@ -13,6 +13,8 @@ class Penduduk extends Model
     protected $table = 'penduduk';
     protected $primaryKey = 'IDPenduduk';
     protected $guarded = [];
+    protected $with = ['kelompok'];
+
     public $timestamps = false;
 
     public function kelompok()

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             KelompokSeeder::class,
             KecamatanSeeder::class,
             PoskoSeeder::class,
+            DonaturSeeder::class,
         ]);
     }
 }

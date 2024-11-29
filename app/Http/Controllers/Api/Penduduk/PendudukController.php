@@ -22,11 +22,14 @@ class PendudukController extends Controller
             // Mengambil daftar Penduduk dengan relasi kelompok, dan melakukan pagination
             $penduduk = Penduduk::with(['kelompok']);
 
-            if (isset($request->idDesa) && isset($request->idKelompok)) {
-                $penduduk = $penduduk->where('IDDesa', $request->get('idDesa'))->where('IDKelompok', $request->get('idKelompok'));
+            if (isset($request->idDesa)) {
+                $penduduk = $penduduk->where('IDDesa', $request->get('idDesa'));
             }
 
-            Log::debug($request->get('idDesa'));
+            if (isset($request->idKelompok)) {
+                $penduduk = $penduduk->where('IDKelompok', $request->get('idKelompok'));
+            }
+
             // Mengembalikan response sukses dengan data penduduk
             return ApiResponse::success($penduduk->get());
         } catch (\Throwable $th) {
@@ -47,13 +50,14 @@ class PendudukController extends Controller
 
             // Validasi input dari request
             $validator = Validator::make($request->all(), [
-                'ktp' => 'nullable|string|max:16',
-                'nama' => 'required|string|max:20',
-                'alamat' => 'required|string|max:50',
-                'desa' => 'required|string|max:20',
-                'tanggal_lahir' => 'required|date',
-                'jenis_kelamin' => 'required|boolean',
-                'kelompok' => 'required|integer',
+                'KTP' => 'nullable|string|max:16',
+                'Nama' => 'required|string|max:20',
+                'Alamat' => 'required|string|max:50',
+                'TanggalLahir' => 'required|date',
+                'JenisKelamin' => 'required',
+                'IDKecamatan' => 'required',
+                'IDDesa' => 'required',
+                'IDKelompok' => 'required',
             ]);
 
             // Jika validasi gagal, kembalikan error dengan status 422
@@ -62,22 +66,22 @@ class PendudukController extends Controller
             }
 
             // Membuat data Penduduk baru dengan lock untuk mencegah konflik
-            $store = Penduduk::lockForUpdate()->create([
-                'KTP' => $request->ktp,
-                'Nama' => $request->nama,
-                'Alamat' => $request->alamat,
-                'Desa' => $request->desa,
-                'TanggalLahir' => $request->tanggal_lahir,
-                'JenisKelamin' => $request->jenis_kelamin,
-                'Kelompok' => $request->kelompok,
-                'LastUpdateDate' => now(),
-                'LastUpdateBy' => auth()->user()->id,
+            $penduduk = Penduduk::create([
+                'KTP' => $request->KTP,
+                'Nama' => $request->Nama,
+                'TanggalLahir' => $request->TanggalLahir,
+                'JenisKelamin' => $request->JenisKelamin,
+                'Alamat' => $request->Alamat,
+                'IDDesa' => $request->IDDesa,
+                'IDKecamatan' => $request->IDKecamatan,
+                'IDKelompok' => $request->IDKelompok,
+                'LastUpdateBy' => $request->user()->IDPengguna,
             ]);
 
             // Jika penyimpanan berhasil, commit transaksi dan kembalikan response sukses
-            if ($store) {
+            if ($penduduk) {
                 DB::commit();
-                return ApiResponse::created($store);
+                return ApiResponse::created($penduduk);
             }
 
             // Rollback transaksi jika gagal
@@ -127,13 +131,14 @@ class PendudukController extends Controller
 
             // Validasi input dari request
             $validator = Validator::make($request->all(), [
-                'ktp' => 'nullable|string|max:16',
-                'nama' => 'required|string|max:20',
-                'alamat' => 'required|string|max:50',
-                'desa' => 'required|string|max:20',
-                'tanggal_lahir' => 'required|date',
-                'jenis_kelamin' => 'required|boolean',
-                'kelompok' => 'required|integer',
+                'KTP' => 'nullable|string|max:16',
+                'Nama' => 'required|string|max:50',
+                'Alamat' => 'required|string|max:255',
+                'TanggalLahir' => 'required|date',
+                'JenisKelamin' => 'required',
+                'IDKecamatan' => 'required',
+                'IDDesa' => 'required',
+                'IDKelompok' => 'required',
             ]);
 
             // Jika validasi gagal, kembalikan error dengan status 422
@@ -142,20 +147,21 @@ class PendudukController extends Controller
             }
 
             // Update data Penduduk berdasarkan IDPenduduk
-            $store = Penduduk::lockForUpdate()->where('IDPenduduk', $id)->update([
-                'KTP' => $request->ktp,
-                'Nama' => $request->nama,
-                'Alamat' => $request->alamat,
-                'Desa' => $request->desa,
-                'TanggalLahir' => $request->tanggal_lahir,
-                'JenisKelamin' => $request->jenis_kelamin,
-                'Kelompok' => $request->kelompok,
-                'LastUpdateDate' => now(),
-                'LastUpdateBy' => auth()->user()->id,
+            $penduduk = Penduduk::query()->find($id)->update([
+                'KTP' => $request->KTP,
+                'Nama' => $request->Nama,
+                'TanggalLahir' => $request->TanggalLahir,
+                'JenisKelamin' => $request->JenisKelamin,
+                'Alamat' => $request->Alamat,
+                'IDDesa' => $request->IDDesa,
+                'IDKecamatan' => $request->IDKecamatan,
+                'IDKelompok' => $request->IDKelompok,
+                'LastUpdateBy' => $request->user()->IDPengguna,
             ]);
 
+
             // Jika update berhasil, commit transaksi dan kembalikan response sukses
-            if ($store) {
+            if ($penduduk) {
                 DB::commit();
                 return ApiResponse::success(Penduduk::with([
                     'kelompok'

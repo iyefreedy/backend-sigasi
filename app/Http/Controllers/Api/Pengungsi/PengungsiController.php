@@ -18,8 +18,18 @@ class PengungsiController extends Controller
 {
     public function index()
     {
-        // menampilkan seluruh data pengungsi dengan dibatasi per 10 data
-        $pengungsi = Pengungsi::with(['penduduk', 'posko.user'])->paginate(10);
+        $pengungsi =  Pengungsi::with(['penduduk', 'posko.user']);
+        if (request()->get('idPosko')) {
+            $pengungsi = $pengungsi->where('IDPosko', '=', request()->get('idPosko'));
+        }
+
+        if (request()->get('idKelompok')) {
+            $pengungsi = $pengungsi->whereHas('penduduk', function ($q) {
+                $q->where('IDKelompok', request()->get('idKelompok'));
+            });
+        }
+
+        $pengungsi = $pengungsi->get();
 
         return ApiResponse::success($pengungsi);
     }
@@ -39,33 +49,22 @@ class PengungsiController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [ // validasi parameter
-                'idPosko' => 'required|numeric',
-                'idPenduduk' => 'required|numeric',
-                'condition' => 'string|max:255',
+                'IDPosko' => 'required',
+                'IDPenduduk' => 'required',
+                'KondisiKhusus' => 'string|max:255',
             ]);
 
             if ($validator->fails()) { // jika parameter ada yang tidak sesuai dengan aturan, maka masuk kondisi error
                 return ApiResponse::badRequest($validator->errors());
             }
 
-            $posko = Posko::where('IDPosko', $request->idPosko)->first();
-            $user = User::where('id', $request->idPenduduk)->first();
-            if (!$posko) { // cek apakah posko ada, jika tidak ada maka return error
-                return ApiResponse::badRequest('posko tidak ditemkan');
-            }
-
-            if (!$user) { // cek apakah user ada, jika tidak ada maka return error
-                return ApiResponse::badRequest('user tidak ditemkan');
-            }
-
-
             DB::beginTransaction(); // memulai transaksi
             $pengungsi = Pengungsi::lockForUpdate()->create([ // membuat record baru 
-                'IDPenduduk' => $request->idPenduduk, // ini adalah id user
-                'IDPosko' => $request->idPosko,
-                'KondisiKhusus' => $request->condition,
+                'IDPenduduk' => $request->IDPenduduk, // ini adalah id user
+                'IDPosko' => $request->IDPosko,
+                'KondisiKhusus' => $request->KondisiKhusus,
                 'LastUpdateDate' => Carbon::now(),
-                'LastUpdateBy' => Auth::user()->id,
+                'LastUpdateBy' => $request->user()->IDPengguna,
             ]);
             if ($pengungsi) {
                 DB::commit();
@@ -87,9 +86,9 @@ class PengungsiController extends Controller
                 return ApiResponse::badRequest('error id missing');
             }
             $validator = Validator::make($request->all(), [ // cek validasi
-                'idPosko' => 'required|numeric',
-                'idPenduduk' => 'required|numeric',
-                'condition' => 'string|max:255',
+                'IDPosko' => 'required|string',
+                'IDPenduduk' => 'required|string',
+                'KondisiKhusus' => 'string|max:255',
             ]);
 
 
@@ -97,30 +96,18 @@ class PengungsiController extends Controller
                 return ApiResponse::badRequest($validator->errors());
             }
 
-            $posko = Posko::where('IDPosko', $request->idPosko)->first();
-            $user = User::where('id', $request->idPenduduk)->first();
-
-            if (!$posko) { // jika posko tidak ada maka retur error
-                return ApiResponse::badRequest('posko tidak ditemkan');
-            }
-
-            if (!$user) { // jika user tidak ada maka muncul error
-                return ApiResponse::badRequest('user tidak ditemkan');
-            }
-
 
             DB::beginTransaction(); // memulai transaksi
             $pengungsi = Pengungsi::where('IDPengungsi', $id)->lockForUpdate()->update([ // update record berdasarkan id pengungsi
-                'IDPenduduk' => $request->idPenduduk,
-                'IDPosko' => $request->idPosko,
-                'KondisiKhusus' => $request->condition,
+                'IDPenduduk' => $request->IDPenduduk,
+                'IDPosko' => $request->IDPosko,
+                'KondisiKhusus' => $request->KondisiKhusus,
                 'LastUpdateDate' => Carbon::now(),
-                'LastUpdateBy' => Auth::user()->id,
+                'LastUpdateBy' => $request->user()->IDPengguna,
             ]);
             if ($pengungsi) {
                 DB::commit();
-                $data_pengungsi = Pengungsi::with(['penduduk', 'posko.user'])->where('IDPengungsi', $id)->first();
-                return ApiResponse::success($data_pengungsi);
+                return ApiResponse::success($pengungsi);
             } else {
                 DB::rollBack();
                 return ApiResponse::badRequest('pengungsi tidak ditemukan');

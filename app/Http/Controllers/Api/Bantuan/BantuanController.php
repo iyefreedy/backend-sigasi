@@ -78,11 +78,12 @@ class BantuanController extends Controller
             Log::warning($request->TanggalBantuan);
 
             // Membuat entri baru di tabel 'bantuan' dengan data dari request
-            $bantuan = Bantuan::create([
+            $bantuan = Bantuan::query()->firstOrCreate([
                 'IDDonatur' => $request->IDDonatur, // Menyimpan ID donatur
                 'TanggalBantuan' => $request->TanggalBantuan, // Menyimpan tanggal bantuan
+            ], [
                 'LastUpdateDate' => now(), // Menyimpan waktu update terakhir
-                'LastUpdateBy' => Auth::user()->IDPengguna, // Menyimpan ID user yang melakukan update terakhir
+                'LastUpdateBy' => $request->user()->IDPengguna, // Menyimpan ID user yang melakukan update terakhir
             ]);
 
 
@@ -94,12 +95,15 @@ class BantuanController extends Controller
                 foreach ($request->bantuan_detail as $item) {
 
                     // Menyimpan detail bantuan di tabel 'Bantuan_Dtl'
-                    $bantuan_detail = Bantuan_Dtl::create([
-                        'IDBantuanDTL' => $item['IDBantuanDTL'],
+                    $bantuan_detail = Bantuan_Dtl::query()->firstOrCreate([
                         'IDBantuan' => $bantuan->IDBantuan, // Menyimpan ID bantuan
                         'IDBarang' => $item['IDBarang'], // Menyimpan ID barang
-                        'Jumlah' => $item['Jumlah'], // Menyimpan jumlah barang
+
+                    ], [
+                        'IDBantuanDTL' => $item['IDBantuanDTL'],
+                        'Jumlah' => 0, // Menyimpan jumlah barang
                     ]);
+                    $bantuan_detail->increment('Jumlah', $item['Jumlah']);
 
                     Log::warning($item);
 

@@ -103,5 +103,16 @@ class UserSeeder extends Seeder
             'KataSandi' => Hash::make('admin123'),
         ]);
         $kecamatan->assignRole('kecamatan');
+
+        // Menambahkan data Relawan 1 sampai 10
+        for ($i = 1; $i < 10; $i++) {
+            $relawan = User::create([
+                'Nama' => "Relawan $i",
+                'Username' => "relawan$i",
+                'NomorKontak' => "0811223344$i$i",
+                'KataSandi' => Hash::make('admin123'),
+            ]);
+            $relawan->assignRole('relawan');
+        }
     }
 }
