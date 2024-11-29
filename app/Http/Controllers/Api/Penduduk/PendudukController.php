@@ -67,6 +67,7 @@ class PendudukController extends Controller
 
             // Membuat data Penduduk baru dengan lock untuk mencegah konflik
             $penduduk = Penduduk::create([
+                'IDPenduduk' => $request->IDPenduduk,
                 'KTP' => $request->KTP,
                 'Nama' => $request->Nama,
                 'TanggalLahir' => $request->TanggalLahir,
