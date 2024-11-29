@@ -15,7 +15,7 @@ class Distribusi extends Model
     protected $table = 'distribusi';
     protected $primaryKey = 'IDDistribusi';
     protected $guarded = [];
-    protected $with = ['posko', 'bantuan'];
+    protected $with = ['posko', 'barang'];
 
     public $timestamps = false;
 
