@@ -20,20 +20,10 @@ class KeluargaAnggotaController extends Controller
 
     public function store(string $idKeluarga, Request $request)
     {
-        $penduduk = Penduduk::create([
-            'KTP' => $request->KTP,
-            'Nama' => $request->Nama,
-            'TanggalLahir' => $request->TanggalLahir,
-            'JenisKelamin' => $request->JenisKelamin,
-            'Alamat' => $request->Alamat,
-            'IDDesa' => $request->IDDesa,
-            'IDKecamatan' => $request->IDKecamatan,
-            'IDKelompok' => $request->IDKelompok,
-            'LastUpdateBy' => $request->user()->IDPengguna,
-        ]);
+
         $anggota = AnggotaKeluarga::create([
             'IDKeluarga' => $idKeluarga,
-            'IDPenduduk' => $penduduk->IDPenduduk,
+            'IDPenduduk' => $request->IDPenduduk,
             'Hubungan' => $request->Hubungan,
             'LastUpdateBy' => $request->user()->IDPengguna,
         ]);
