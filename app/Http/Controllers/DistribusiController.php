@@ -26,7 +26,8 @@ class DistribusiController extends Controller
             $validator = Validator::make($request->all(), [
                 'IDBarang' => 'required',
                 'IDPosko' => 'required',
-                'Jumlah' => 'required|integer'
+                'Jumlah' => 'required|integer',
+                'TanggalDistribusi' => 'required|date'
             ]);
 
             if ($validator->fails()) {
@@ -45,7 +46,8 @@ class DistribusiController extends Controller
                 'IDPosko' => $request->IDPosko,
                 'IDBarang' => $request->IDBarang,
                 'Jumlah' => $request->Jumlah,
-                'LastUpdateBy' => Auth::user()->IDPengguna,
+                'TanggalDistribusi' => $request->TanggalDistribusi,
+                'LastUpdateBy' => $request->user()->IDPengguna,
             ]);
 
             $stok->decrement('Jumlah', $request->Jumlah);

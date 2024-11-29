@@ -51,7 +51,7 @@ class PengungsiController extends Controller
             $validator = Validator::make($request->all(), [ // validasi parameter
                 'IDPosko' => 'required',
                 'IDPenduduk' => 'required',
-                'KondisiKhusus' => 'string|max:255',
+                'KondisiKhusus' => 'nullable|string|max:255',
             ]);
 
             if ($validator->fails()) { // jika parameter ada yang tidak sesuai dengan aturan, maka masuk kondisi error
@@ -59,13 +59,14 @@ class PengungsiController extends Controller
             }
 
             DB::beginTransaction(); // memulai transaksi
-            $pengungsi = Pengungsi::lockForUpdate()->create([ // membuat record baru 
+            $pengungsi = Pengungsi::query()->create([ // membuat record baru 
                 'IDPenduduk' => $request->IDPenduduk, // ini adalah id user
                 'IDPosko' => $request->IDPosko,
                 'KondisiKhusus' => $request->KondisiKhusus,
                 'LastUpdateDate' => Carbon::now(),
                 'LastUpdateBy' => $request->user()->IDPengguna,
             ]);
+
             if ($pengungsi) {
                 DB::commit();
                 return ApiResponse::created($pengungsi);
@@ -88,7 +89,7 @@ class PengungsiController extends Controller
             $validator = Validator::make($request->all(), [ // cek validasi
                 'IDPosko' => 'required|string',
                 'IDPenduduk' => 'required|string',
-                'KondisiKhusus' => 'string|max:255',
+                'KondisiKhusus' => 'nullable|string|max:255',
             ]);
 
 
