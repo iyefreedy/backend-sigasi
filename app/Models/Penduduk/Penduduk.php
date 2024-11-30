@@ -3,6 +3,7 @@
 namespace App\Models\Penduduk;
 
 use App\Models\Kelompok\Kelompok;
+use App\Models\Pengungsi\Pengungsi;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,5 +21,10 @@ class Penduduk extends Model
     public function kelompok()
     {
         return $this->belongsTo(Kelompok::class, 'IDKelompok', 'IDKelompok');
+    }
+
+    public function pengungsi()
+    {
+        return $this->hasOne(Pengungsi::class, 'IDPenduduk', 'IDPenduduk');
     }
 }

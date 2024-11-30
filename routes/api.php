@@ -15,6 +15,8 @@ use App\Http\Controllers\DistribusiController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KeluargaAnggotaController;
 use App\Http\Controllers\KeluargaController;
+use App\Http\Helpers\ApiResponse;
+use App\Models\Penduduk\Penduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +45,15 @@ Route::get('/kecamatan/{id}/desa', [KecamatanController::class, 'desa']);
 Route::middleware('auth:api')->group(function () {
     Route::get('user', function (Request $request) {
         return $request->user();
+    });
+
+    Route::get('/penduduk-tanpa-pengungsi', function (Request $request) {
+        $penduduk = Penduduk::query()
+            ->where('IDDesa', $request->input('idDesa'))
+            ->whereDoesntHave('pengungsi')
+            ->get();
+
+        return ApiResponse::success($penduduk);
     });
 
     Route::controller(UserManagementController::class)
