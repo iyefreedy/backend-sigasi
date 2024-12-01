@@ -20,7 +20,7 @@ class DonaturController extends Controller
     {
         try {
             // Mengambil data donatur dengan paginasi
-            $donatur = Donatur::with(['bantuan'])->get(); // Membatasi hasil menjadi 10 per halaman
+            $donatur = Donatur::with(['bantuan'])->orderBy('NamaPerusahaan', 'ASC')->get(); // Membatasi hasil menjadi 10 per halaman
 
             // Mengembalikan respons sukses dengan data donatur yang dipaginasi
             return ApiResponse::success($donatur);
