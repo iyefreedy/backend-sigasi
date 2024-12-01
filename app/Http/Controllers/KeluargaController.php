@@ -19,7 +19,7 @@ class KeluargaController extends Controller
             return ApiResponse::success(Keluarga::query()->where('NomorKK', 'LIKE', request()->get('q') . '%')->orderBy('LastUpdateBy', 'DESC')->get());
         }
 
-        if ($idDesa != null && $idKecamatan) {
+        if ($idDesa != null && $idKecamatan != null) {
             return ApiResponse::success(Keluarga::where('IDDesa', $idDesa)->where('IDKecamatan', $idKecamatan)->orderBy('LastUpdateBy', 'DESC')->get());
         }
 
