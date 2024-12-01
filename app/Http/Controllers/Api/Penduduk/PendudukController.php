@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Penduduk;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ApiResponse;
+use App\Models\Keluarga;
 use App\Models\Penduduk\Penduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,18 +21,28 @@ class PendudukController extends Controller
         try {
 
             // Mengambil daftar Penduduk dengan relasi kelompok, dan melakukan pagination
-            $penduduk = Penduduk::with(['kelompok']);
+            $keluarga = Keluarga::query();
 
             if (isset($request->idDesa)) {
-                $penduduk = $penduduk->where('IDDesa', $request->get('idDesa'));
+                $keluarga = $keluarga->where('IDDesa', $request->get('idDesa'));
             }
 
             if (isset($request->idKelompok)) {
-                $penduduk = $penduduk->where('IDKelompok', $request->get('idKelompok'));
+                $keluarga = $keluarga->with(['anggota.penduduk'])->where('IDKelompok', $request->get('idKelompok'));
             }
 
+            $keluarga = $keluarga->with(['anggota' => function ($query) {
+                $query->orderByRaw("FIELD(Hubungan, 'Kepala Keluarga', 'Istri', 'Anak', 'Orang Tua', 'Lainnya')");
+            }])->orderBy('NomorKK')->get();
+
+            $penduduk = $keluarga->flatMap(function ($item) {
+                return $item->anggota->map(function ($anggota) {
+                    return $anggota->penduduk;
+                });
+            })->filter();
+
             // Mengembalikan response sukses dengan data penduduk
-            return ApiResponse::success($penduduk->get());
+            return ApiResponse::success($penduduk->values());
         } catch (\Throwable $th) {
             // Menangkap exception dan mengembalikan pesan error
             return ApiResponse::badRequest($th->getMessage());
