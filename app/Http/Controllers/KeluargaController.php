@@ -28,7 +28,9 @@ class KeluargaController extends Controller
 
     public function show(string $id)
     {
-        $keluarga = Keluarga::with(['anggota'])->findOrFail($id);
+        $keluarga = Keluarga::with(['anggota' => function ($query) {
+            $query->orderByRaw("FIELD(Hubungan, 'Kepala Keluarga', 'Istri', 'Anak', 'Orang Tua', 'Lainnya')");
+        }])->findOrFail($id);
 
         return ApiResponse::success($keluarga);
     }
