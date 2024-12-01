@@ -24,9 +24,9 @@ class BantuanController extends Controller
         try {
             // Mengambil data bantuan beserta relasinya
             $bantuan = Bantuan::with([
-                'donatur', // Memuat relasi 'donatur'
+                'donatur' => fn($query) => $query->orderBy('NamaPerusahaan', 'ASC'), // Memuat relasi 'donatur'
                 'bantuanDetail.barang' // Memuat relasi 'bantuanDetail' dan 'barang'
-            ])->get(); // Menggunakan pagination untuk membatasi data menjadi 10 per halaman
+            ])->orderBy('TanggalBantuan', 'DESC')->get(); // Menggunakan pagination untuk membatasi data menjadi 10 per halaman
 
             // Mengembalikan respons sukses dengan data bantuan yang dipaginasi
             return ApiResponse::success($bantuan);
