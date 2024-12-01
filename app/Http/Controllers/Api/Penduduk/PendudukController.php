@@ -21,28 +21,18 @@ class PendudukController extends Controller
         try {
 
             // Mengambil daftar Penduduk dengan relasi kelompok, dan melakukan pagination
-            $keluarga = Keluarga::query();
+            $penduduk = Penduduk::with(['kelompok']);
 
             if (isset($request->idDesa)) {
-                $keluarga = $keluarga->where('IDDesa', $request->get('idDesa'));
+                $penduduk = $penduduk->where('IDDesa', $request->get('idDesa'));
             }
 
             if (isset($request->idKelompok)) {
-                $keluarga = $keluarga->with(['anggota.penduduk'])->where('IDKelompok', $request->get('idKelompok'));
+                $penduduk = $penduduk->where('IDKelompok', $request->get('idKelompok'));
             }
 
-            $keluarga = $keluarga->with(['anggota' => function ($query) {
-                $query->orderByRaw("FIELD(Hubungan, 'Kepala Keluarga', 'Istri', 'Anak', 'Orang Tua', 'Lainnya')");
-            }])->orderBy('NomorKK')->get();
-
-            $penduduk = $keluarga->flatMap(function ($item) {
-                return $item->anggota->map(function ($anggota) {
-                    return $anggota->penduduk;
-                });
-            })->filter();
-
             // Mengembalikan response sukses dengan data penduduk
-            return ApiResponse::success($penduduk->values());
+            return ApiResponse::success($penduduk->get());
         } catch (\Throwable $th) {
             // Menangkap exception dan mengembalikan pesan error
             return ApiResponse::badRequest($th->getMessage());

@@ -18,6 +18,11 @@ class AnggotaKeluarga extends Model
 
     public $timestamps = false;
 
+    public function keluarga()
+    {
+        return $this->belongsTo(Keluarga::class, 'IDKeluarga', 'IDKeluarga');
+    }
+
     public function penduduk()
     {
         return $this->belongsTo(Penduduk::class, 'IDPenduduk', 'IDPenduduk');
