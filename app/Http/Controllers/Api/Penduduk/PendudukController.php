@@ -31,6 +31,8 @@ class PendudukController extends Controller
                 $penduduk = $penduduk->where('IDKelompok', $request->get('idKelompok'));
             }
 
+            $penduduk = $penduduk->orderBy('Nama');
+
             // Mengembalikan response sukses dengan data penduduk
             return ApiResponse::success($penduduk->get());
         } catch (\Throwable $th) {
