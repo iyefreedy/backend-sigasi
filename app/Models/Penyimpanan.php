@@ -16,6 +16,6 @@ class Penyimpanan extends Model
 
     public function barang()
     {
-        return $this->hasOne(Barang::class, 'IDBarang', 'IDBarang');
+        return $this->belongsTo(Barang::class, 'IDBarang', 'IDBarang');
     }
 }
