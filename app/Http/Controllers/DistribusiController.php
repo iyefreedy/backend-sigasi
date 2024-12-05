@@ -14,7 +14,7 @@ class DistribusiController extends Controller
 {
     public function index()
     {
-        $distribusi = Distribusi::all();
+        $distribusi = Distribusi::query()->orderBy('TanggalDistribusi', 'DESC')->get();
 
         return ApiResponse::success($distribusi);
     }
