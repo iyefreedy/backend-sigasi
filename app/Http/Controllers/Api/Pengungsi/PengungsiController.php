@@ -59,13 +59,17 @@ class PengungsiController extends Controller
             }
 
             DB::beginTransaction(); // memulai transaksi
-            $pengungsi = Pengungsi::query()->create([ // membuat record baru 
-                'IDPenduduk' => $request->IDPenduduk, // ini adalah id user
-                'IDPosko' => $request->IDPosko,
-                'KondisiKhusus' => $request->KondisiKhusus,
-                'LastUpdateDate' => Carbon::now(),
-                'LastUpdateBy' => $request->user()->IDPengguna,
-            ]);
+            $pengungsi = Pengungsi::query()->firstOrCreate(
+                [
+                    'IDPenduduk' => $request->IDPenduduk, // ini adalah id user
+                    'IDPosko' => $request->IDPosko,
+                ],
+                [
+                    'KondisiKhusus' => $request->KondisiKhusus,
+                    'LastUpdateDate' => Carbon::now(),
+                    'LastUpdateBy' => $request->user()->IDPengguna,
+                ]
+            );
 
             if ($pengungsi) {
                 DB::commit();
